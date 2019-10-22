@@ -95,7 +95,8 @@ public class OrderItemRepositoryImpl implements OrderItemRepository {
     
     @Override
     public List<OrderItem> selectAll() throws SQLException {
-        String sql = "SELECT i.* FROM t_order o, t_order_item i WHERE o.order_id = i.order_id";
+        //String sql = "SELECT i.* FROM t_order o, t_order_item i WHERE o.order_id = i.order_id";
+        String sql = "SELECT i.* FROM T_ORDER o left join t_order_item i on o.order_id = i.order_id";
         return getOrderItems(sql);
     }
     
