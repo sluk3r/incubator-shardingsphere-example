@@ -1,0 +1,61 @@
+schemaName: sharding_db
+
+dataSources:
+  ds_0:
+    url: jdbc:mysql://192.168.151.31:3306/metastore?useSSL=false
+    username: root
+    password: 123
+    connectionTimeoutMilliseconds: 30000
+    idleTimeoutMilliseconds: 60000
+    maxLifetimeMilliseconds: 1800000
+    maxPoolSize: 50
+  ds_1:
+    url: jdbc:mysql://192.168.151.31:3306/holmes?useSSL=false
+    username: root
+    password: 123
+    connectionTimeoutMilliseconds: 30000
+    idleTimeoutMilliseconds: 60000
+    maxLifetimeMilliseconds: 1800000
+    maxPoolSize: 50
+
+shardingRule:
+  tables:
+    DBS:
+      actualDataNodes: ds_0.DBS
+    TBLS:
+      actualDataNodes: ds_0.TBLS
+    TABLE_PARAMS:
+      actualDataNodes: ds_0.TABLE_PARAMS 
+    SDS:
+      actualDataNodes: ds_0.SDS
+    COLUMNS_V2:
+      actualDataNodes: ds_0.COLUMNS_V2
+
+    board:
+      actualDataNodes: ds_1.board
+    common:
+      actualDataNodes: ds_1.common
+    event:
+      actualDataNodes: ds_1.event
+    event_filter:
+      actualDataNodes: ds_1.event_filter
+    filter:
+      actualDataNodes: ds_1.filter
+    graph:
+      actualDataNodes: ds_1.graph
+    graph_group:
+      actualDataNodes: ds_1.graph_group
+    project_db:
+      actualDataNodes: ds_1.project_db
+    report:
+      actualDataNodes: ds_1.report
+    table_info:
+      actualDataNodes: ds_1.table_info
+  bindingTables:
+    - DBS,TBLS,TABLE_PARAMS,SDS,COLUMNS_V2,board,common,event,event_filter,filter,graph,graph_group,project_db,report,table_info
+  defaultDataSourceName:
+    ds_1
+  defaultDatabaseStrategy:
+    none:
+  defaultTableStrategy:
+    none:
